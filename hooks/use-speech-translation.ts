@@ -3,7 +3,10 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { getLanguage } from "@/lib/languages";
 import { log } from "@/lib/logger";
+import { suppressVendorLogs } from "@/lib/suppress-vendor-logs";
 import { usePersistentState } from "./use-persistent-state";
+
+suppressVendorLogs();
 
 export function useSpeechTranslation() {
   const [sourceLanguage, _setSourceLanguage] = usePersistentState(
