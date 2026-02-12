@@ -225,6 +225,11 @@ export function useSpeechTranslation() {
     const client = clientRef.current;
     if (!client) return;
 
+    clientRef.current = null;
+    setIsRecording(false);
+    setPartialTranscript("");
+    setPartialTranslation("");
+
     log.info("Stopping");
     try {
       client.stopPlayback();
@@ -232,15 +237,9 @@ export function useSpeechTranslation() {
     } catch (e) {
       log.warn("Stop warning:", e);
     }
-    try {
-      client.cleanup();
-    } catch {
-      // Ignore cleanup errors
-    }
-    clientRef.current = null;
-    setIsRecording(false);
-    setPartialTranscript("");
-    setPartialTranslation("");
+    // cleanup() throws "No session data found" after stopTranslation
+    // already disconnected the room — safe to ignore
+    try { client.cleanup(); } catch { /* expected */ }
   }, []);
 
   const swapLanguages = useCallback(() => {
