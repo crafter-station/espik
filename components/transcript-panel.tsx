@@ -13,6 +13,7 @@ interface TranscriptPanelProps {
   wordCount?: number;
   onCopy?: () => void;
   onClear?: () => void;
+  "data-onboarding"?: string;
 }
 
 export function TranscriptPanel({
@@ -24,6 +25,7 @@ export function TranscriptPanel({
   wordCount = 0,
   onCopy,
   onClear,
+  "data-onboarding": dataOnboarding,
 }: TranscriptPanelProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
 
@@ -40,6 +42,7 @@ export function TranscriptPanel({
 
   return (
     <div
+      data-onboarding={dataOnboarding}
       className={cn(
         "animate-fade-in relative flex min-h-0 flex-1 flex-col border p-px",
         variant === "translation"
@@ -119,7 +122,7 @@ export function TranscriptPanel({
       </div>
 
       {/* Content */}
-      <div ref={scrollRef} className="flex-1 overflow-y-auto px-4 pb-3">
+      <div ref={scrollRef} className="flex-1 cursor-default select-none overflow-y-auto px-4 pb-3">
         {children}
       </div>
     </div>

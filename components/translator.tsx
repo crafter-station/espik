@@ -1,7 +1,8 @@
 "use client";
 
 import { useCallback, useMemo } from "react";
-import { ArrowLeftRight } from "lucide-react";
+import { ArrowLeftRight, Mic, Volume2 } from "lucide-react";
+import { OnboardingGuide } from "./onboarding-guide";
 import { LanguageSelector } from "./language-selector";
 import { RecordingDisc } from "./waveform";
 import { TranscriptPanel, TranscriptText } from "./transcript-panel";
@@ -78,6 +79,7 @@ export function Translator() {
 
   return (
     <div className="flex h-[100dvh] justify-center bg-[#1a1a1a]">
+      <OnboardingGuide />
       {/* Mobile container */}
       <div className="relative flex h-full w-full max-w-[430px] flex-col overflow-hidden bg-[#C8C4BC]">
         {/* Top bar */}
@@ -157,6 +159,7 @@ export function Translator() {
             variant="source"
             wordCount={transcriptWordCount}
             onCopy={transcriptText ? handleCopyTranscript : undefined}
+            data-onboarding="source-panel"
           >
             <p>
               {transcripts.length > 0 || partialTranscript ? (
@@ -173,8 +176,9 @@ export function Translator() {
                   Listening...
                 </span>
               ) : (
-                <span className="text-xs text-[#1a1a1a]/25">
-                  Speech will appear here...
+                <span className="flex items-center gap-1.5 text-xs text-[#1a1a1a]/25">
+                  <Mic className="h-3 w-3" />
+                  Tap the disc below to start speaking
                 </span>
               )}
             </p>
@@ -183,7 +187,7 @@ export function Translator() {
           {/* Center control hub */}
           <div className="flex flex-col items-center py-1.5">
             {/* Source language — left aligned */}
-            <div className="flex w-full items-center gap-2 pr-[30%]">
+            <div data-onboarding="source-lang" className="flex w-full items-center gap-2 pr-[30%]">
               <LanguageSelector
                 value={sourceLanguage}
                 onChange={setSourceLanguage}
@@ -195,7 +199,7 @@ export function Translator() {
             </div>
 
             {/* Disc — centered */}
-            <div className="py-1.5">
+            <div data-onboarding="recording-disc" className="py-1.5">
               <RecordingDisc
                 isRecording={isRecording}
                 isConnecting={isConnecting}
@@ -262,8 +266,9 @@ export function Translator() {
                   Waiting for translation...
                 </span>
               ) : (
-                <span className="text-xs text-[#1a1a1a]/25">
-                  Translation will appear here...
+                <span className="flex items-center gap-1.5 text-xs text-[#1a1a1a]/25">
+                  <Volume2 className="h-3 w-3" />
+                  Your translation will stream here
                 </span>
               )}
             </p>
