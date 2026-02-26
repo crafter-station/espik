@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@palabra-ai/translator": "^0.0.9",
+    "@vercel/analytics": "^1.6.1",
     "clsx": "^2.1.1",
     "lucide-react": "^0.563.0",
     "next": "16.1.6",
